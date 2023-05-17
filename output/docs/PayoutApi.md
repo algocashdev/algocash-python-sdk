@@ -20,15 +20,15 @@ import time
 import algocash_sdk
 from algocash_sdk.rest import ApiException
 from pprint import pprint
-
-# Configure API key authorization: apiKeyAuth
-configuration = algocash_sdk.Configuration()
-configuration.api_key['Signature'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Signature'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
+# Configure HTTP basic authorization: basicAuth
 configuration = algocash_sdk.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
+# Configure API key authorization: signatureAuth
+configuration = algocash_sdk.Configuration()
+configuration.api_key['Signature'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Signature'] = 'Bearer'
 
 # create an instance of the API class
 api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [basicAuth](../README.md#basicAuth)
+[basicAuth](../README.md#basicAuth), [signatureAuth](../README.md#signatureAuth)
 
 ### HTTP request headers
 
