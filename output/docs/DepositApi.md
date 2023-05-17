@@ -21,8 +21,17 @@ import algocash_sdk
 from algocash_sdk.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: apiKeyAuth
+configuration = algocash_sdk.Configuration()
+configuration.api_key['Signature'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Signature'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
+configuration = algocash_sdk.Configuration()
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+
 # create an instance of the API class
-api_instance = algocash_sdk.DepositApi()
+api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
 invoice_id = 'invoice_id_example' # str |  (optional)
 amount = 'amount_example' # str |  (optional)
 payer = algocash_sdk.Payer() # Payer |  (optional)
@@ -53,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apiKeyAuth](../README.md#apiKeyAuth), [basicAuth](../README.md#basicAuth)
 
 ### HTTP request headers
 
