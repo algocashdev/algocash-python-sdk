@@ -30,10 +30,10 @@ configuration.api_access_token = 'API_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
-invoice_id = 'invoice_id_example' # str | 
-amount = 'amount_example' # str | 
-payer = algocash_sdk.Payer() # Payer | 
-payment_method = 'payment_method_example' # str | 
+invoice_id = '12312213' # str | 
+amount = '12' # str | 
+payer = algocash_sdk.Payer('test@gmail.com', '+1233465346') # Payer | 
+payment_method = 'UPI' # str | 
 url = algocash_sdk.Url() # Url | 
 
 try:
