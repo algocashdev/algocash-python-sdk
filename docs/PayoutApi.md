@@ -30,9 +30,9 @@ configuration.api_access_token = 'API_ACCESS_TOKEN'
 api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))
 invoice_id = '123412' # str | 
 amount = '12' # str | 
-payer = algocash_sdk.Payer('test@gmail.com', '+1233465346') # Payer | 
+payer = algocash_sdk.Payer('email', 'phone number') # Payer | 
 payment_method = 'UPI' # str | 
-bank_account = algocash_sdk.Bank() # Bank | 
+bank_account = algocash_sdk.Bank('bank_account_number', 'bank_code', 'bank_beneficiary') # Bank | 
 url = algocash_sdk.Url('callback_url') # Url | 
 
 try:
