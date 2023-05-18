@@ -34,7 +34,7 @@ invoice_id = '12312213' # str |
 amount = '12' # str | 
 payer = algocash_sdk.Payer('test@gmail.com', '+1233465346') # Payer | 
 payment_method = 'UPI' # str | 
-url = algocash_sdk.Url() # Url | 
+url = algocash_sdk.Url('callback_url', 'pending_url', 'success_url', 'error_url') # Url | 
 
 try:
     # create a deposit
