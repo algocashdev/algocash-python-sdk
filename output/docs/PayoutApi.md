@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**create_payout**](PayoutApi.md#create_payout) | **POST** /payout | create payout
 
 # **create_payout**
-> PayoutSuccess create_payout(invoice_id, amount, payer, payment_method, bank_account, url)
+> PayoutSuccess create_payout(body)
 
 create payout
 
@@ -32,16 +32,11 @@ configuration.api_key['API_ACCESS_TOKEN'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))
-invoice_id = 'invoice_id_example' # str | 
-amount = 'amount_example' # str | 
-payer = algocash_sdk.Payer() # Payer | 
-payment_method = 'payment_method_example' # str | 
-bank_account = algocash_sdk.Bank() # Bank | 
-url = algocash_sdk.Url() # Url | 
+body = algocash_sdk.PayoutRequest() # PayoutRequest | Payout request body
 
 try:
     # create payout
-    api_response = api_instance.create_payout(invoice_id, amount, payer, payment_method, bank_account, url)
+    api_response = api_instance.create_payout(body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PayoutApi->create_payout: %s\n" % e)
@@ -51,12 +46,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invoice_id** | **str**|  | 
- **amount** | **str**|  | 
- **payer** | [**Payer**](.md)|  | 
- **payment_method** | **str**|  | 
- **bank_account** | [**Bank**](.md)|  | 
- **url** | [**Url**](.md)|  | 
+ **body** | [**PayoutRequest**](PayoutRequest.md)| Payout request body | 
 
 ### Return type
 
@@ -68,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

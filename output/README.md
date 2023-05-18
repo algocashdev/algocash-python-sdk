@@ -62,15 +62,11 @@ configuration.api_key['API_ACCESS_TOKEN'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
-invoice_id = 'invoice_id_example' # str | 
-amount = 'amount_example' # str | 
-payer = algocash_sdk.Payer() # Payer | 
-payment_method = 'payment_method_example' # str | 
-url = algocash_sdk.Url() # Url | 
+body = algocash_sdk.DepositRequest() # DepositRequest | Deposit request body
 
 try:
     # create a deposit
-    api_response = api_instance.create_deposit(invoice_id, amount, payer, payment_method, url)
+    api_response = api_instance.create_deposit(body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DepositApi->create_deposit: %s\n" % e)

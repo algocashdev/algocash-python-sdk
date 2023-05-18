@@ -32,53 +32,45 @@ class DepositApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_deposit(self, invoice_id, amount, payer, payment_method, url, **kwargs):  # noqa: E501
+    def create_deposit(self, body, **kwargs):  # noqa: E501
         """create a deposit  # noqa: E501
 
         create a deposit  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_deposit(invoice_id, amount, payer, payment_method, url, async_req=True)
+        >>> thread = api.create_deposit(body, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str invoice_id: (required)
-        :param str amount: (required)
-        :param Payer payer: (required)
-        :param str payment_method: (required)
-        :param Url url: (required)
+        :param DepositRequest body: Deposit request body (required)
         :return: DepositSuccess
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.create_deposit_with_http_info(invoice_id, amount, payer, payment_method, url, **kwargs)  # noqa: E501
+            return self.create_deposit_with_http_info(body, **kwargs)  # noqa: E501
         else:
-            (data) = self.create_deposit_with_http_info(invoice_id, amount, payer, payment_method, url, **kwargs)  # noqa: E501
+            (data) = self.create_deposit_with_http_info(body, **kwargs)  # noqa: E501
             return data
 
-    def create_deposit_with_http_info(self, invoice_id, amount, payer, payment_method, url, **kwargs):  # noqa: E501
+    def create_deposit_with_http_info(self, body, **kwargs):  # noqa: E501
         """create a deposit  # noqa: E501
 
         create a deposit  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_deposit_with_http_info(invoice_id, amount, payer, payment_method, url, async_req=True)
+        >>> thread = api.create_deposit_with_http_info(body, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str invoice_id: (required)
-        :param str amount: (required)
-        :param Payer payer: (required)
-        :param str payment_method: (required)
-        :param Url url: (required)
+        :param DepositRequest body: Deposit request body (required)
         :return: DepositSuccess
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['invoice_id', 'amount', 'payer', 'payment_method', 'url']  # noqa: E501
+        all_params = ['body']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -93,26 +85,10 @@ class DepositApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'invoice_id' is set
-        if ('invoice_id' not in params or
-                params['invoice_id'] is None):
-            raise ValueError("Missing the required parameter `invoice_id` when calling `create_deposit`")  # noqa: E501
-        # verify the required parameter 'amount' is set
-        if ('amount' not in params or
-                params['amount'] is None):
-            raise ValueError("Missing the required parameter `amount` when calling `create_deposit`")  # noqa: E501
-        # verify the required parameter 'payer' is set
-        if ('payer' not in params or
-                params['payer'] is None):
-            raise ValueError("Missing the required parameter `payer` when calling `create_deposit`")  # noqa: E501
-        # verify the required parameter 'payment_method' is set
-        if ('payment_method' not in params or
-                params['payment_method'] is None):
-            raise ValueError("Missing the required parameter `payment_method` when calling `create_deposit`")  # noqa: E501
-        # verify the required parameter 'url' is set
-        if ('url' not in params or
-                params['url'] is None):
-            raise ValueError("Missing the required parameter `url` when calling `create_deposit`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if ('body' not in params or
+                params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `create_deposit`")  # noqa: E501
 
         collection_formats = {}
 
@@ -124,25 +100,17 @@ class DepositApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'invoice_id' in params:
-            form_params.append(('invoice_id', params['invoice_id']))  # noqa: E501
-        if 'amount' in params:
-            form_params.append(('amount', params['amount']))  # noqa: E501
-        if 'payer' in params:
-            form_params.append(('payer', params['payer']))  # noqa: E501
-        if 'payment_method' in params:
-            form_params.append(('payment_method', params['payment_method']))  # noqa: E501
-        if 'url' in params:
-            form_params.append(('url', params['url']))  # noqa: E501
 
         body_params = None
+        if 'body' in params:
+            body_params = params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['multipart/form-data'])  # noqa: E501
+            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['basicAuth', 'signatureAuth']  # noqa: E501
