@@ -25,15 +25,16 @@ configuration = algocash_sdk.Configuration()
 configuration.merchant_key = 'MERCHANT_KEY'
 configuration.merchant_secret = 'MERCHANT_SECRET'
 configuration.api_access_token = 'API_ACCESS_TOKEN'
+configuration.devmode = True # if production, False
 
 # create an instance of the API class
 api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))
 invoice_id = '123412' # str | 
 amount = '12' # str | 
-payer = algocash_sdk.Payer('email', 'phone number') # Payer | 
+payer = algocash_sdk.Payer('email', 'phone number').to_str() # Payer | 
 payment_method = 'UPI' # str | 
-bank_account = algocash_sdk.Bank('bank_account_number', 'bank_code', 'bank_beneficiary') # Bank | 
-url = algocash_sdk.Url('callback_url') # Url | 
+bank_account = algocash_sdk.Bank('bank_account_number', 'bank_code', 'bank_beneficiary').to_str() # Bank | 
+url = algocash_sdk.Url('callback_url').to_str() # Url | 
 
 try:
     # create payout

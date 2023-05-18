@@ -25,14 +25,15 @@ configuration = algocash_sdk.Configuration()
 configuration.merchant_key = 'MERCHANT_KEY'
 configuration.merchant_secret = 'MERCHANT_SECRET'
 configuration.api_access_token = 'API_ACCESS_TOKEN'
+configuration.devmode = True # if production, False
 
 # create an instance of the API class
 api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
 invoice_id = '12321421' # str | 
 amount = '12' # str | 
-payer = algocash_sdk.Payer('email', 'phone number') # Payer 
+payer = algocash_sdk.Payer('email', 'phone number').to_str() # Payer 
 payment_method = 'UPI' # str | 
-url = algocash_sdk.Url('callback_url', 'pending_url', 'success_url', 'error_url') # Url | 
+url = algocash_sdk.Url('callback_url', 'pending_url', 'success_url', 'error_url').to_str() # Url | 
 
 try:
     # create a deposit
