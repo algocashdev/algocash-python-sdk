@@ -12,6 +12,7 @@
 
 import pprint
 import re  # noqa: F401
+import json
 
 import six
 
@@ -170,7 +171,7 @@ class Address(object):
 
     def to_str(self):
         """Returns the string representation of the model"""
-        return pprint.pformat(self.to_dict())
+        return json.dumps(self.to_dict())
 
     def __repr__(self):
         """For `print` and `pprint`"""
