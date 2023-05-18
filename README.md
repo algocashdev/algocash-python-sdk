@@ -93,3 +93,6 @@ Class | Method | HTTP request | Description
  - [PayoutRequest](docs/PayoutRequest.md)
  - [PayoutSuccess](docs/PayoutSuccess.md)
  - [Url](docs/Url.md)
+
+ ### Author
+https://github.com/gitdevstar
