@@ -28,60 +28,63 @@ class Url(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'back_url': 'str',
+        'callback_url': 'str',
         'pending_url': 'str',
         'success_url': 'str',
         'error_url': 'str',
-        'callback_url': 'str'
+        'back_url': 'str'
     }
 
     attribute_map = {
-        'back_url': 'back_url',
+        'callback_url': 'callback_url',
         'pending_url': 'pending_url',
         'success_url': 'success_url',
         'error_url': 'error_url',
-        'callback_url': 'callback_url'
+        'back_url': 'back_url'
     }
 
-    def __init__(self, back_url=None, pending_url=None, success_url=None, error_url=None, callback_url=None):  # noqa: E501
+    def __init__(self, callback_url=None, pending_url=None, success_url=None, error_url=None, back_url=None):  # noqa: E501
         """Url - a model defined in Swagger"""  # noqa: E501
-        self._back_url = None
+        self._callback_url = None
         self._pending_url = None
         self._success_url = None
         self._error_url = None
-        self._callback_url = None
+        self._back_url = None
         self.discriminator = None
-        if back_url is not None:
-            self.back_url = back_url
+        self.callback_url = callback_url
         if pending_url is not None:
             self.pending_url = pending_url
         if success_url is not None:
             self.success_url = success_url
         if error_url is not None:
             self.error_url = error_url
-        if callback_url is not None:
-            self.callback_url = callback_url
+        if back_url is not None:
+            self.back_url = back_url
 
     @property
-    def back_url(self):
-        """Gets the back_url of this Url.  # noqa: E501
+    def callback_url(self):
+        """Gets the callback_url of this Url.  # noqa: E501
 
+        Valid URL over HTTPS used to receive the notifications about the deposit's changes of status  # noqa: E501
 
-        :return: The back_url of this Url.  # noqa: E501
+        :return: The callback_url of this Url.  # noqa: E501
         :rtype: str
         """
-        return self._back_url
+        return self._callback_url
 
-    @back_url.setter
-    def back_url(self, back_url):
-        """Sets the back_url of this Url.
+    @callback_url.setter
+    def callback_url(self, callback_url):
+        """Sets the callback_url of this Url.
 
+        Valid URL over HTTPS used to receive the notifications about the deposit's changes of status  # noqa: E501
 
-        :param back_url: The back_url of this Url.  # noqa: E501
+        :param callback_url: The callback_url of this Url.  # noqa: E501
         :type: str
         """
+        if callback_url is None:
+            raise ValueError("Invalid value for `callback_url`, must not be `None`")  # noqa: E501
 
-        self._back_url = back_url
+        self._callback_url = callback_url
 
     @property
     def pending_url(self):
@@ -147,27 +150,25 @@ class Url(object):
         self._error_url = error_url
 
     @property
-    def callback_url(self):
-        """Gets the callback_url of this Url.  # noqa: E501
+    def back_url(self):
+        """Gets the back_url of this Url.  # noqa: E501
 
-        Valid URL over HTTPS used to receive the notifications about the deposit's changes of status  # noqa: E501
 
-        :return: The callback_url of this Url.  # noqa: E501
+        :return: The back_url of this Url.  # noqa: E501
         :rtype: str
         """
-        return self._callback_url
+        return self._back_url
 
-    @callback_url.setter
-    def callback_url(self, callback_url):
-        """Sets the callback_url of this Url.
+    @back_url.setter
+    def back_url(self, back_url):
+        """Sets the back_url of this Url.
 
-        Valid URL over HTTPS used to receive the notifications about the deposit's changes of status  # noqa: E501
 
-        :param callback_url: The callback_url of this Url.  # noqa: E501
+        :param back_url: The back_url of this Url.  # noqa: E501
         :type: str
         """
 
-        self._callback_url = callback_url
+        self._back_url = back_url
 
     def to_dict(self):
         """Returns the model properties as a dict"""
