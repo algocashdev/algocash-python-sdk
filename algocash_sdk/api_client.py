@@ -124,18 +124,16 @@ class ApiClient(object):
         # query parameters
         if query_params:
             query_params = self.sanitize_for_serialization(query_params)
-            query_params = self.parameters_to_tuples(query_params,
-                                                     collection_formats)
+            query_params = self.parameters_to_tuples(query_params, collection_formats)
 
         # post parameters
         if post_params or files:
             post_params = self.prepare_post_parameters(post_params, files)
             post_params = self.sanitize_for_serialization(post_params)
-            post_params = self.parameters_to_tuples(post_params,
-                                                    collection_formats)
-
+            post_params = self.parameters_to_tuples(post_params, collection_formats)
+        
         # auth setting
-        self.update_params_for_auth(header_params, query_params, auth_settings)
+        self.update_params_for_auth(header_params, post_params, query_params, auth_settings)
 
         # body
         if body:
@@ -227,7 +225,7 @@ class ApiClient(object):
         try:
             data = json.loads(response.data)
         except ValueError:
-            data = response.data
+            return response.data
 
         return self.__deserialize(data, response_type)
 
@@ -420,6 +418,70 @@ class ApiClient(object):
             else:
                 new_params.append((k, v))
         return new_params
+    
+    def parameters_to_tuples1(self, params, collection_formats):
+        """Get parameters as list of tuples, formatting collections.
+
+        :param params: Parameters as dict or list of two-tuples
+        :param dict collection_formats: Parameter collection formats
+        :return: Parameters as list of tuples, collections formatted
+        """
+        new_params = []
+        if collection_formats is None:
+            collection_formats = {}
+        for k, v in six.iteritems(params) if isinstance(params, dict) else params:  # noqa: E501
+            if isinstance(v, dict):
+                v = self.parameters_to_tuples1(v, collection_formats)
+            if k in collection_formats:
+                collection_format = collection_formats[k]
+                if collection_format == 'multi':
+                    new_params.extend((k, value) for value in v)
+                else:
+                    if collection_format == 'ssv':
+                        delimiter = ' '
+                    elif collection_format == 'tsv':
+                        delimiter = '\t'
+                    elif collection_format == 'pipes':
+                        delimiter = '|'
+                    else:  # csv is the default
+                        delimiter = ','
+                    new_params.append(
+                        (k, delimiter.join(str(value) for value in v)))
+            else:
+                new_params.append((k, v))
+        return tuple(new_params)
+    
+    def parameters_to_dicts(self, params, collection_formats=None):
+        """Get parameters as list of dict, formatting collections.
+
+        :param params: Parameters as dict or list of two-tuples
+        :param dict collection_formats: Parameter collection formats
+        :return: Parameters as list of dict, collections formatted
+        """
+        new_params = []
+        if collection_formats is None:
+            collection_formats = {}
+        for k, v in six.iteritems(params) if isinstance(params, tuple) else params:  # noqa: E501
+            if isinstance(v, tuple):
+                v = self.parameters_to_tuples1(v, collection_formats)
+            if k in collection_formats:
+                collection_format = collection_formats[k]
+                if collection_format == 'multi':
+                    new_params.extend((k, value) for value in v)
+                else:
+                    if collection_format == 'ssv':
+                        delimiter = ' '
+                    elif collection_format == 'tsv':
+                        delimiter = '\t'
+                    elif collection_format == 'pipes':
+                        delimiter = '|'
+                    else:  # csv is the default
+                        delimiter = ','
+                    new_params.append(
+                        (k, delimiter.join(str(value) for value in v)))
+            else:
+                new_params.append((k, v))
+        return dict(new_params)
 
     def prepare_post_parameters(self, post_params=None, files=None):
         """Builds form parameters.
@@ -481,7 +543,7 @@ class ApiClient(object):
         else:
             return content_types[0]
 
-    def update_params_for_auth(self, headers, querys, auth_settings):
+    def update_params_for_auth(self, headers, post_params, querys, auth_settings):
         """Updates header and query params based on authentication setting.
 
         :param headers: Header parameters dict to be updated.
@@ -492,7 +554,7 @@ class ApiClient(object):
             return
 
         for auth in auth_settings:
-            auth_setting = self.configuration.auth_settings(querys).get(auth)
+            auth_setting = self.configuration.auth_settings(post_params).get(auth)
             if auth_setting:
                 if not auth_setting['value']:
                     continue
