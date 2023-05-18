@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**create_payout**](PayoutApi.md#create_payout) | **POST** /payout | create payout
 
 # **create_payout**
-> PayoutSuccess create_payout(invoice_id=invoice_id, amount=amount, payer=payer, payment_method=payment_method, bank_account=bank_account, url=url)
+> PayoutSuccess create_payout(invoice_id, amount, payer, payment_method, bank_account, url)
 
 create payout
 
@@ -20,19 +20,28 @@ import time
 import algocash_sdk
 from algocash_sdk.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: basicAuth
+configuration = algocash_sdk.Configuration()
+configuration.merchant_key = 'MERCHANT_KEY'
+configuration.merchant_secret = 'MERCHANT_SECRET'
+# Configure API key authorization: signatureAuth
+configuration = algocash_sdk.Configuration()
+configuration.api_key['API_ACCESS_TOKEN'] = 'API_ACCESS_TOKEN'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Signature'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = algocash_sdk.PayoutApi()
-invoice_id = 'invoice_id_example' # str |  (optional)
-amount = 'amount_example' # str |  (optional)
-payer = algocash_sdk.Payer() # Payer |  (optional)
-payment_method = 'payment_method_example' # str |  (optional)
-bank_account = algocash_sdk.Bank() # Bank |  (optional)
-url = algocash_sdk.Url() # Url |  (optional)
+api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))
+invoice_id = 'invoice_id_example' # str | 
+amount = 'amount_example' # str | 
+payer = algocash_sdk.Payer() # Payer | 
+payment_method = 'payment_method_example' # str | 
+bank_account = algocash_sdk.Bank() # Bank | 
+url = algocash_sdk.Url() # Url | 
 
 try:
     # create payout
-    api_response = api_instance.create_payout(invoice_id=invoice_id, amount=amount, payer=payer, payment_method=payment_method, bank_account=bank_account, url=url)
+    api_response = api_instance.create_payout(invoice_id, amount, payer, payment_method, bank_account, url)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PayoutApi->create_payout: %s\n" % e)
@@ -42,12 +51,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invoice_id** | **str**|  | [optional] 
- **amount** | **str**|  | [optional] 
- **payer** | [**Payer**](.md)|  | [optional] 
- **payment_method** | **str**|  | [optional] 
- **bank_account** | [**Bank**](.md)|  | [optional] 
- **url** | [**Url**](.md)|  | [optional] 
+ **invoice_id** | **str**|  | 
+ **amount** | **str**|  | 
+ **payer** | [**Payer**](.md)|  | 
+ **payment_method** | **str**|  | 
+ **bank_account** | [**Bank**](.md)|  | 
+ **url** | [**Url**](.md)|  | 
 
 ### Return type
 
@@ -55,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [signatureAuth](../README.md#signatureAuth)
 
 ### HTTP request headers
 

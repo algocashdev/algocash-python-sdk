@@ -492,7 +492,7 @@ class ApiClient(object):
             return
 
         for auth in auth_settings:
-            auth_setting = self.configuration.auth_settings().get(auth)
+            auth_setting = self.configuration.auth_settings(querys).get(auth)
             if auth_setting:
                 if not auth_setting['value']:
                     continue

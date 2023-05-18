@@ -17,6 +17,7 @@ import logging
 import multiprocessing
 import sys
 import urllib3
+import hashlib
 
 import six
 from six.moves import http_client as httplib
@@ -51,16 +52,12 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.temp_folder_path = None
 
         # Authentication Settings
-        # dict to store API key(s)
-        self.api_key = {}
-        # dict to store API prefix (e.g. Bearer)
-        self.api_key_prefix = {}
-        # function to refresh API key if expired
-        self.refresh_api_key_hook = None
-        # Username for HTTP basic authentication
-        self.username = ""
-        # Password for HTTP basic authentication
-        self.password = ""
+        # generate signature
+        self.api_access_token = ""
+        # merchant_key for HTTP basic authentication
+        self.merchant_key = ""
+        # merchant_secret for HTTP basic authentication
+        self.merchant_secret = ""
         # Logging Settings
         self.logger = {}
         self.logger["package_logger"] = logging.getLogger("algocash_sdk")
@@ -197,38 +194,38 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.__logger_format = value
         self.logger_formatter = logging.Formatter(self.__logger_format)
 
-    def get_api_key_with_prefix(self, identifier):
-        """Gets API key (with prefix if set).
-
-        :param identifier: The identifier of apiKey.
-        :return: The token for api key authentication.
-        """
-        if self.refresh_api_key_hook:
-            self.refresh_api_key_hook(self)
-
-        key = self.api_key.get(identifier)
-        if key:
-            prefix = self.api_key_prefix.get(identifier)
-            if prefix:
-                return "%s %s" % (prefix, key)
-            else:
-                return key
-
     def get_basic_auth_token(self):
         """Gets HTTP basic authentication header (string).
 
         :return: The token for basic HTTP authentication.
         """
         return urllib3.util.make_headers(
-            basic_auth=self.username + ':' + self.password
+            basic_auth=self.merchant_key + ':' + self.merchant_secret
         ).get('authorization')
+    
+    def generateSignature(self, querys):
+        return hashlib.sha256(querys + self.api_access_token)
 
-    def auth_settings(self):
+    def auth_settings(self, querys):
         """Gets Auth Settings dict for api client.
 
         :return: The Auth Settings information dict.
         """
         return {
+            'basicAuth':
+                {
+                    'type': 'basic',
+                    'in': 'header',
+                    'key': 'Authorization',
+                    'value': self.get_basic_auth_token()
+                },
+            'signatureAuth':
+                {
+                    'type': 'api_key',
+                    'in': 'header',
+                    'key': 'Signature',
+                    'value': self.generateSignature(querys)
+                },
         }
 
     def to_debug_report(self):
