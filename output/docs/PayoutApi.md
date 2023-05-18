@@ -26,9 +26,9 @@ configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 # Configure API key authorization: signatureAuth
 configuration = algocash_sdk.Configuration()
-configuration.api_key['Signature'] = 'YOUR_API_KEY'
+configuration.api_key['API_ACCESS_TOKEN'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Signature'] = 'Bearer'
+# configuration.api_key_prefix['API_ACCESS_TOKEN'] = 'Bearer'
 
 # create an instance of the API class
 api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))

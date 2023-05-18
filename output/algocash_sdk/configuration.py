@@ -240,8 +240,8 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
                 {
                     'type': 'api_key',
                     'in': 'header',
-                    'key': 'Signature',
-                    'value': self.get_api_key_with_prefix('Signature')
+                    'key': 'API_ACCESS_TOKEN',
+                    'value': self.get_api_key_with_prefix('API_ACCESS_TOKEN')
                 },
         }
 

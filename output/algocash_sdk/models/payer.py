@@ -28,35 +28,37 @@ class Payer(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'email': 'str',
+        'phone': 'str',
         'id': 'str',
         'document': 'str',
         'first_name': 'str',
         'last_name': 'str',
-        'phone': 'str',
-        'email': 'str',
         'address': 'Address'
     }
 
     attribute_map = {
+        'email': 'email',
+        'phone': 'phone',
         'id': 'id',
         'document': 'document',
         'first_name': 'first_name',
         'last_name': 'last_name',
-        'phone': 'phone',
-        'email': 'email',
         'address': 'address'
     }
 
-    def __init__(self, id=None, document=None, first_name=None, last_name=None, phone=None, email=None, address=None):  # noqa: E501
+    def __init__(self, email=None, phone=None, id=None, document=None, first_name=None, last_name=None, address=None):  # noqa: E501
         """Payer - a model defined in Swagger"""  # noqa: E501
+        self._email = None
+        self._phone = None
         self._id = None
         self._document = None
         self._first_name = None
         self._last_name = None
-        self._phone = None
-        self._email = None
         self._address = None
         self.discriminator = None
+        self.email = email
+        self.phone = phone
         if id is not None:
             self.id = id
         if document is not None:
@@ -65,10 +67,54 @@ class Payer(object):
             self.first_name = first_name
         if last_name is not None:
             self.last_name = last_name
-        self.phone = phone
-        self.email = email
         if address is not None:
             self.address = address
+
+    @property
+    def email(self):
+        """Gets the email of this Payer.  # noqa: E501
+
+
+        :return: The email of this Payer.  # noqa: E501
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        """Sets the email of this Payer.
+
+
+        :param email: The email of this Payer.  # noqa: E501
+        :type: str
+        """
+        if email is None:
+            raise ValueError("Invalid value for `email`, must not be `None`")  # noqa: E501
+
+        self._email = email
+
+    @property
+    def phone(self):
+        """Gets the phone of this Payer.  # noqa: E501
+
+
+        :return: The phone of this Payer.  # noqa: E501
+        :rtype: str
+        """
+        return self._phone
+
+    @phone.setter
+    def phone(self, phone):
+        """Sets the phone of this Payer.
+
+
+        :param phone: The phone of this Payer.  # noqa: E501
+        :type: str
+        """
+        if phone is None:
+            raise ValueError("Invalid value for `phone`, must not be `None`")  # noqa: E501
+
+        self._phone = phone
 
     @property
     def id(self):
@@ -155,52 +201,6 @@ class Payer(object):
         """
 
         self._last_name = last_name
-
-    @property
-    def phone(self):
-        """Gets the phone of this Payer.  # noqa: E501
-
-
-        :return: The phone of this Payer.  # noqa: E501
-        :rtype: str
-        """
-        return self._phone
-
-    @phone.setter
-    def phone(self, phone):
-        """Sets the phone of this Payer.
-
-
-        :param phone: The phone of this Payer.  # noqa: E501
-        :type: str
-        """
-        if phone is None:
-            raise ValueError("Invalid value for `phone`, must not be `None`")  # noqa: E501
-
-        self._phone = phone
-
-    @property
-    def email(self):
-        """Gets the email of this Payer.  # noqa: E501
-
-
-        :return: The email of this Payer.  # noqa: E501
-        :rtype: str
-        """
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        """Sets the email of this Payer.
-
-
-        :param email: The email of this Payer.  # noqa: E501
-        :type: str
-        """
-        if email is None:
-            raise ValueError("Invalid value for `email`, must not be `None`")  # noqa: E501
-
-        self._email = email
 
     @property
     def address(self):
