@@ -17,6 +17,9 @@ import unittest
 import algocash_sdk
 from algocash_sdk.api.deposit_api import DepositApi  # noqa: E501
 from algocash_sdk.rest import ApiException
+from algocash_sdk.configuration import Configuration
+from algocash_sdk.api_client import ApiClient
+from pprint import pprint
 
 
 class TestDepositApi(unittest.TestCase):
@@ -33,6 +36,29 @@ class TestDepositApi(unittest.TestCase):
 
         create a deposit  # noqa: E501
         """
+
+        configuration = Configuration()
+        configuration.merchant_key = 'sWBYGvzA61ITU4Vh'
+        configuration.merchant_secret = 'OfeR3xi59rLAM9c1'
+        configuration.api_access_token = '4q4epHrbUHykQwnc'
+        configuration.devmode = True
+
+        client = ApiClient(configuration)
+
+        # create an instance of the API class
+        api_instance = DepositApi(client)
+        invoice_id = '1000000001' # str | 
+        amount = '20' # str | 
+        payer = algocash_sdk.Payer('test@gmail.com', '+918885916123').to_str() # Payer 
+        payment_method = 'UPI' # str | 
+        url = algocash_sdk.Url('https://localhost:8080/callback', 'https://localhost:8080/pending', 'https://localhost:8080/success', 'https://localhost:8080/error').to_str() # Url | 
+
+        try:
+            # create a deposit
+            api_response = api_instance.create_deposit(invoice_id, amount, payer, payment_method, url)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling DepositApi->create_deposit: %s\n" % e)
         pass
 
 
