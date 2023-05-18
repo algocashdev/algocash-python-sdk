@@ -74,6 +74,8 @@ except ApiException as e:
 
 ## Documentation for API Endpoints
 
+Swagger: https://app.swaggerhub.com/apis-docs/gitdevstar/Algocash/1.0.0
+
 BASE_URL: https://testapi2.algorithmic.cash/  for dev
 
 Class | Method | HTTP request | Description
