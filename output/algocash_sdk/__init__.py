@@ -23,6 +23,7 @@ from algocash_sdk.configuration import Configuration
 # import models into sdk package
 from algocash_sdk.models.address import Address
 from algocash_sdk.models.bank import Bank
+from algocash_sdk.models.callback_payload import CallbackPayload
 from algocash_sdk.models.deposit_request import DepositRequest
 from algocash_sdk.models.deposit_success import DepositSuccess
 from algocash_sdk.models.error import Error

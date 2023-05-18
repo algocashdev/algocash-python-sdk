@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**create_deposit**](DepositApi.md#create_deposit) | **POST** /payin | create a deposit
 
 # **create_deposit**
-> DepositSuccess create_deposit(invoice_id=invoice_id, amount=amount, payer=payer, payment_method=payment_method, url=url)
+> DepositSuccess create_deposit(invoice_id, amount, payer, payment_method, url)
 
 create a deposit
 
@@ -32,15 +32,15 @@ configuration.api_key['Signature'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
-invoice_id = 'invoice_id_example' # str |  (optional)
-amount = 'amount_example' # str |  (optional)
-payer = algocash_sdk.Payer() # Payer |  (optional)
-payment_method = 'payment_method_example' # str |  (optional)
-url = algocash_sdk.Url() # Url |  (optional)
+invoice_id = 'invoice_id_example' # str | 
+amount = 'amount_example' # str | 
+payer = algocash_sdk.Payer() # Payer | 
+payment_method = 'payment_method_example' # str | 
+url = algocash_sdk.Url() # Url | 
 
 try:
     # create a deposit
-    api_response = api_instance.create_deposit(invoice_id=invoice_id, amount=amount, payer=payer, payment_method=payment_method, url=url)
+    api_response = api_instance.create_deposit(invoice_id, amount, payer, payment_method, url)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DepositApi->create_deposit: %s\n" % e)
@@ -50,11 +50,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invoice_id** | **str**|  | [optional] 
- **amount** | **str**|  | [optional] 
- **payer** | [**Payer**](.md)|  | [optional] 
- **payment_method** | **str**|  | [optional] 
- **url** | [**Url**](.md)|  | [optional] 
+ **invoice_id** | **str**|  | 
+ **amount** | **str**|  | 
+ **payer** | [**Payer**](.md)|  | 
+ **payment_method** | **str**|  | 
+ **url** | [**Url**](.md)|  | 
 
 ### Return type
 
