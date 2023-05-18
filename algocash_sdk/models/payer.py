@@ -28,26 +28,26 @@ class Payer(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'email': 'str',
+        'phone': 'str',
         'id': 'str',
         'document': 'str',
         'first_name': 'str',
         'last_name': 'str',
-        'phone': 'str',
-        'email': 'str',
         'address': 'Address'
     }
 
     attribute_map = {
+        'email': 'email',
+        'phone': 'phone',
         'id': 'id',
         'document': 'document',
         'first_name': 'first_name',
         'last_name': 'last_name',
-        'phone': 'phone',
-        'email': 'email',
         'address': 'address'
     }
 
-    def __init__(self, id=None, document=None, first_name=None, last_name=None, phone=None, email=None, address=None):  # noqa: E501
+    def __init__(self, email, phone, id=None, document=None, first_name=None, last_name=None, address=None):  # noqa: E501
         """Payer - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._document = None
