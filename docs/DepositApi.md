@@ -20,15 +20,11 @@ import time
 import algocash_sdk
 from algocash_sdk.rest import ApiException
 from pprint import pprint
-# Configure HTTP basic authorization: basicAuth
+
 configuration = algocash_sdk.Configuration()
 configuration.merchant_key = 'MERCHANT_KEY'
 configuration.merchant_secret = 'MERCHANT_SECRET'
-# Configure API key authorization: signatureAuth
-configuration = algocash_sdk.Configuration()
-configuration.api_key['API_ACCESS_TOKEN'] = 'API_ACCESS_TOKEN'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Signature'] = 'Bearer'
+configuration.api_access_token = 'API_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
@@ -60,10 +56,6 @@ Name | Type | Description  | Notes
 
 [**DepositSuccess**](DepositSuccess.md)
 
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [signatureAuth](../README.md#signatureAuth)
-
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
@@ -71,3 +63,5 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+### Author
+https://github.com/gitdevstar
