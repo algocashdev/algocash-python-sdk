@@ -18,6 +18,7 @@ import multiprocessing
 import sys
 import urllib3
 import hashlib
+import json
 
 import six
 from six.moves import http_client as httplib
@@ -46,8 +47,9 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
     def __init__(self):
         """Constructor"""
+        self.devmode = True
         # Default Base url
-        self.host = "https://virtserver.swaggerhub.com/gitdevstar/Algocash/1.0.0"
+        self.host = "https://testapi2.algorithmic.cash" if self.devmode else "https://apiv2.algorithmic.cash"
         # Temp file folder for downloading files
         self.temp_folder_path = None
 
@@ -203,10 +205,10 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
             basic_auth=self.merchant_key + ':' + self.merchant_secret
         ).get('authorization')
     
-    def generateSignature(self, querys):
-        return hashlib.sha256(querys + self.api_access_token)
+    def generateSignature(self, post_params):
+        return  hashlib.sha256((json.dumps(post_params) + self.api_access_token).encode('utf-8')).hexdigest()
 
-    def auth_settings(self, querys):
+    def auth_settings(self, post_params):
         """Gets Auth Settings dict for api client.
 
         :return: The Auth Settings information dict.
@@ -224,7 +226,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
                     'type': 'api_key',
                     'in': 'header',
                     'key': 'Signature',
-                    'value': self.generateSignature(querys)
+                    'value': self.generateSignature(post_params)
                 },
         }
 
