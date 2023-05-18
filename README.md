@@ -74,7 +74,7 @@ except ApiException as e:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/gitdevstar/Algocash/1.0.0*
+BASE_URL: https://testapi2.algorithmic.cash/  for dev
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
