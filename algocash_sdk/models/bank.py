@@ -43,7 +43,7 @@ class Bank(object):
         'bank_account_type': 'bank_account_type'
     }
 
-    def __init__(self, bank_account_number=None, bank_code=None, bank_beneficiary=None, bank_branch=None, bank_account_type=None):  # noqa: E501
+    def __init__(self, bank_account_number, bank_code, bank_beneficiary, bank_branch=None, bank_account_type=None):  # noqa: E501
         """Bank - a model defined in Swagger"""  # noqa: E501
         self._bank_account_number = None
         self._bank_code = None
@@ -51,12 +51,9 @@ class Bank(object):
         self._bank_branch = None
         self._bank_account_type = None
         self.discriminator = None
-        if bank_account_number is not None:
-            self.bank_account_number = bank_account_number
-        if bank_code is not None:
-            self.bank_code = bank_code
-        if bank_beneficiary is not None:
-            self.bank_beneficiary = bank_beneficiary
+        self.bank_account_number = bank_account_number
+        self.bank_code = bank_code
+        self.bank_beneficiary = bank_beneficiary
         if bank_branch is not None:
             self.bank_branch = bank_branch
         if bank_account_type is not None:
@@ -80,6 +77,8 @@ class Bank(object):
         :param bank_account_number: The bank_account_number of this Bank.  # noqa: E501
         :type: str
         """
+        if bank_account_number is None:
+            raise ValueError("Invalid value for `bank_account_number`, must not be `None`")  # noqa: E501
 
         self._bank_account_number = bank_account_number
 
@@ -101,6 +100,8 @@ class Bank(object):
         :param bank_code: The bank_code of this Bank.  # noqa: E501
         :type: str
         """
+        if bank_code is None:
+            raise ValueError("Invalid value for `bank_code`, must not be `None`")  # noqa: E501
 
         self._bank_code = bank_code
 
@@ -122,6 +123,8 @@ class Bank(object):
         :param bank_beneficiary: The bank_beneficiary of this Bank.  # noqa: E501
         :type: str
         """
+        if bank_beneficiary is None:
+            raise ValueError("Invalid value for `bank_beneficiary`, must not be `None`")  # noqa: E501
 
         self._bank_beneficiary = bank_beneficiary
 
