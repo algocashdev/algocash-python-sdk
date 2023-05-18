@@ -9,6 +9,7 @@ This is a Algocash API
 Python 2.7 and 3.4+
 
 ## Installation & Usage
+### pip install
 pip install algocash_sdk
 ```
 
