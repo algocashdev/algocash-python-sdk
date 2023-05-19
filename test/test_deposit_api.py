@@ -20,6 +20,7 @@ from algocash_sdk.rest import ApiException
 from algocash_sdk.configuration import Configuration
 from algocash_sdk.api_client import ApiClient
 from pprint import pprint
+import json
 
 
 class TestDepositApi(unittest.TestCase):
@@ -38,6 +39,7 @@ class TestDepositApi(unittest.TestCase):
         """
 
         configuration = Configuration()
+        configuration.host = 'https://dd1e-5-31-3-154.ngrok-free.app'
         configuration.merchant_key = 'sWBYGvzA61ITU4Vh'
         configuration.merchant_secret = 'OfeR3xi59rLAM9c1'
         configuration.api_access_token = '4q4epHrbUHykQwnc'
@@ -49,9 +51,9 @@ class TestDepositApi(unittest.TestCase):
         api_instance = DepositApi(client)
         invoice_id = '1000000001' # str | 
         amount = '20' # str | 
-        payer = algocash_sdk.Payer('test@gmail.com', '+918885916123').to_str() # Payer 
+        payer = algocash_sdk.Payer('test@gmail.com', '+918885916123') # Payer 
         payment_method = 'UPI' # str | 
-        url = algocash_sdk.Url('https://localhost:8080/callback', 'https://localhost:8080/pending', 'https://localhost:8080/success', 'https://localhost:8080/error').to_str() # Url | 
+        url = algocash_sdk.Url('https://localhost:8080/callback', 'https://localhost:8080/pending', 'https://localhost:8080/success', 'https://localhost:8080/error') # Url | 
 
         try:
             # create a deposit
@@ -59,6 +61,7 @@ class TestDepositApi(unittest.TestCase):
             pprint(api_response)
         except ApiException as e:
             print("Exception when calling DepositApi->create_deposit: %s\n" % e)
+            pprint(json.loads(e.body))
         pass
 
 
