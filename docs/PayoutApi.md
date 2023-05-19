@@ -20,6 +20,7 @@ import time
 import algocash_sdk
 from algocash_sdk.rest import ApiException
 from pprint import pprint
+import json
 
 configuration = algocash_sdk.Configuration()
 configuration.merchant_key = 'MERCHANT_KEY'
@@ -31,10 +32,10 @@ configuration.devmode = True # if production, False
 api_instance = algocash_sdk.PayoutApi(algocash_sdk.ApiClient(configuration))
 invoice_id = '123412' # str | 
 amount = '12' # str | 
-payer = algocash_sdk.Payer('email', 'phone number').to_str() # Payer | 
+payer = algocash_sdk.Payer('email', 'phone number') # Payer | 
 payment_method = 'UPI' # str | 
-bank_account = algocash_sdk.Bank('bank_account_number', 'bank_code', 'bank_beneficiary').to_str() # Bank | 
-url = algocash_sdk.Url('callback_url').to_str() # Url | 
+bank_account = algocash_sdk.Bank('bank_account_number', 'bank_code', 'bank_beneficiary') # Bank | 
+url = algocash_sdk.Url('callback_url') # Url | 
 
 try:
     # create payout
@@ -42,6 +43,7 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PayoutApi->create_payout: %s\n" % e)
+    pprint(json.loads(e.body))
 ```
 
 ### Parameters

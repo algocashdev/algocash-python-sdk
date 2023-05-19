@@ -22,6 +22,7 @@ import time
 import algocash_sdk
 from algocash_sdk.rest import ApiException
 from pprint import pprint
+import json
 
 configuration = algocash_sdk.Configuration()
 configuration.merchant_key = 'MERCHANT_KEY'
@@ -33,9 +34,9 @@ configuration.devmode = True # if production, False
 api_instance = algocash_sdk.DepositApi(algocash_sdk.ApiClient(configuration))
 invoice_id = '12312213' # str | 
 amount = '12' # str | 
-payer = algocash_sdk.Payer('email', 'phone number').to_str() # Payer 
+payer = algocash_sdk.Payer('email', 'phone number') # Payer 
 payment_method = 'UPI' # str | 
-url = algocash_sdk.Url('callback_url', 'pending_url', 'success_url', 'error_url').to_str() # Url | 
+url = algocash_sdk.Url('callback_url', 'pending_url', 'success_url', 'error_url') # Url | 
 
 try:
     # create a deposit
@@ -43,6 +44,7 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DepositApi->create_deposit: %s\n" % e)
+    pprint(json.loads(e.body))
 ```
 
 ## Documentation for API Endpoints
