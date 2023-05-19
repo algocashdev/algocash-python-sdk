@@ -132,12 +132,13 @@ class ApiClient(object):
             post_params = self.sanitize_for_serialization(post_params)
             post_params = self.parameters_to_tuples(post_params, collection_formats)
         
-        # auth setting
-        self.update_params_for_auth(header_params, post_params, query_params, auth_settings)
-
         # body
         if body:
             body = self.sanitize_for_serialization(body)
+            body = self.parameters_to_dicts(body)
+
+        # auth setting
+        self.update_params_for_auth(header_params, body, query_params, auth_settings)
 
         # request url
         url = self.configuration.host + resource_path
@@ -463,7 +464,7 @@ class ApiClient(object):
             collection_formats = {}
         for k, v in six.iteritems(params) if isinstance(params, tuple) else params:  # noqa: E501
             if isinstance(v, tuple):
-                v = self.parameters_to_tuples1(v, collection_formats)
+                v = self.parameters_to_dicts(v, collection_formats)
             if k in collection_formats:
                 collection_format = collection_formats[k]
                 if collection_format == 'multi':

@@ -113,7 +113,7 @@ class DepositApi(object):
         if ('url' not in params or
                 params['url'] is None):
             raise ValueError("Missing the required parameter `url` when calling `create_deposit`")  # noqa: E501
-
+        
         collection_formats = {}
 
         path_params = {}
@@ -122,27 +122,27 @@ class DepositApi(object):
 
         header_params = {}
 
-        form_params = []
+        body_params = []
         local_var_files = {}
         if 'invoice_id' in params:
-            form_params.append(('invoice_id', params['invoice_id']))  # noqa: E501
+            body_params.append(('invoice_id', params['invoice_id']))  # noqa: E501
         if 'amount' in params:
-            form_params.append(('amount', params['amount']))  # noqa: E501
+            body_params.append(('amount', params['amount']))  # noqa: E501
         if 'payer' in params:
-            form_params.append(('payer', params['payer']))  # noqa: E501
+            body_params.append(('payer', params['payer']))  # noqa: E501
         if 'payment_method' in params:
-            form_params.append(('payment_method', params['payment_method']))  # noqa: E501
+            body_params.append(('payment_method', params['payment_method']))  # noqa: E501
         if 'url' in params:
-            form_params.append(('url', params['url']))  # noqa: E501
+            body_params.append(('url', params['url']))  # noqa: E501
 
-        body_params = None
+        form_params = None
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['multipart/form-data'])  # noqa: E501
+            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['basicAuth', 'signatureAuth']  # noqa: E501
