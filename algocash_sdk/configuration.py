@@ -19,6 +19,7 @@ import sys
 import urllib3
 import hashlib
 import json
+import hmac
 
 import six
 from six.moves import http_client as httplib
@@ -47,7 +48,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
     def __init__(self):
         """Constructor"""
-        self.devmode = True
+        self.devmode = False
         # Default Base url
         self.host = "https://testapi2.algorithmic.cash" if self.devmode else "https://apiv2.algorithmic.cash"
         # Temp file folder for downloading files
@@ -206,29 +207,27 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         ).get('authorization')
     
     def generateSignature(self, post_params):
-        return  hashlib.sha256((json.dumps(post_params) + self.api_access_token).encode('utf-8')).hexdigest()
+        signature = hmac.new(self.api_access_token.encode('utf-8'), json.dumps(post_params).encode('utf-8'), hashlib.sha256).hexdigest()
+        return signature
 
-    def auth_settings(self, post_params):
+    def auth_settings(self, auth, post_params):
         """Gets Auth Settings dict for api client.
 
         :return: The Auth Settings information dict.
         """
+        
         return {
-            'basicAuth':
-                {
                     'type': 'basic',
                     'in': 'header',
                     'key': 'Authorization',
                     'value': self.get_basic_auth_token()
-                },
-            'signatureAuth':
-                {
-                    'type': 'api_key',
-                    'in': 'header',
-                    'key': 'Signature',
-                    'value': self.generateSignature(post_params)
-                },
-        }
+                } if auth == 'basicAuth' else {
+                        'type': 'api_key',
+                        'in': 'header',
+                        'key': 'Signature',
+                        'value': self.generateSignature(post_params)
+                    }
+                
 
     def to_debug_report(self):
         """Gets the essential information for debugging.

@@ -72,7 +72,7 @@ class ApiClient(object):
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'Swagger-Codegen/1.0.0/python'
+        self.user_agent = 'Alogacash-sdk'
 
     def __del__(self):
         self.pool.close()
@@ -139,6 +139,8 @@ class ApiClient(object):
 
         # auth setting
         self.update_params_for_auth(header_params, body, query_params, auth_settings)
+        
+        print(header_params)
 
         # request url
         url = self.configuration.host + resource_path
@@ -226,7 +228,10 @@ class ApiClient(object):
         try:
             data = json.loads(response.data)
         except ValueError:
-            return response.data
+            # return response.data
+            raise ValueError(
+                response.data
+            )
 
         return self.__deserialize(data, response_type)
 
@@ -555,7 +560,7 @@ class ApiClient(object):
             return
 
         for auth in auth_settings:
-            auth_setting = self.configuration.auth_settings(post_params).get(auth)
+            auth_setting = self.configuration.auth_settings(auth, post_params)
             if auth_setting:
                 if not auth_setting['value']:
                     continue
