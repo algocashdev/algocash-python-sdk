@@ -207,7 +207,8 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         ).get('authorization')
     
     def generateSignature(self, post_params):
-        signature = hmac.new(self.api_access_token.encode('utf-8'), json.dumps(post_params).encode('utf-8'), hashlib.sha256).hexdigest()
+        
+        signature = hmac.new(self.api_access_token.encode('utf-8'), json.dumps(post_params, separators=(',', ':')).encode('utf-8'), hashlib.sha256).hexdigest()
         return signature
 
     def auth_settings(self, auth, post_params):

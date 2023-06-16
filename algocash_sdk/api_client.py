@@ -140,8 +140,6 @@ class ApiClient(object):
         # auth setting
         self.update_params_for_auth(header_params, body, query_params, auth_settings)
         
-        print(header_params)
-
         # request url
         url = self.configuration.host + resource_path
 
