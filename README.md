@@ -42,6 +42,8 @@ try:
     # create a deposit
     api_response = api_instance.create_deposit(invoice_id, amount, payer, payment_method, url)
     pprint(api_response)
+except ValueError as e:
+            print("ValueError Exception when calling DepositApi->create_deposit: %s\n" % e)
 except ApiException as e:
     print("Exception when calling DepositApi->create_deposit: %s\n" % e)
     pprint(json.loads(e.body))
