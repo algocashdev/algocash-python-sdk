@@ -93,7 +93,7 @@ class ApiClient(object):
     def __call_api(
             self, resource_path, method, path_params=None,
             query_params=None, header_params=None, body=None, post_params=None,
-            files=None, response_type=None, auth_settings=None,
+            files=None, response_type=None, auth_requested=True,
             _return_http_data_only=None, collection_formats=None,
             _preload_content=True, _request_timeout=None):
 
@@ -138,7 +138,8 @@ class ApiClient(object):
             body = self.parameters_to_dicts(body)
 
         # auth setting
-        self.update_params_for_auth(header_params, body, query_params, auth_settings)
+        if auth_requested:
+            self.update_params_for_auth(header_params, body, query_params)
         
         # request url
         url = self.configuration.host + resource_path
@@ -271,14 +272,8 @@ class ApiClient(object):
             return self.__deserialize_datatime(data)
         else:
             return self.__deserialize_model(data, klass)
-
-    def call_api(self, resource_path, method,
-                 path_params=None, query_params=None, header_params=None,
-                 body=None, post_params=None, files=None,
-                 response_type=None, auth_settings=None, async_req=None,
-                 _return_http_data_only=None, collection_formats=None,
-                 _preload_content=True, _request_timeout=None):
-        """Makes the HTTP request (synchronous) and returns deserialized data.
+        
+    """Makes the HTTP request (synchronous) and returns deserialized data.
 
         To make an async request, set the async_req parameter.
 
@@ -314,11 +309,19 @@ class ApiClient(object):
             If parameter async_req is False or missing,
             then the method will return the response directly.
         """
+
+    def call_api(self, resource_path, method,
+                 path_params=None, query_params=None, header_params=None,
+                 body=None, post_params=None, files=None,
+                 response_type=None, auth_requested=True, async_req=None,
+                 _return_http_data_only=True, collection_formats=None,
+                 _preload_content=True, _request_timeout=None):
+        
         if not async_req:
             return self.__call_api(resource_path, method,
                                    path_params, query_params, header_params,
                                    body, post_params, files,
-                                   response_type, auth_settings,
+                                   response_type, auth_requested,
                                    _return_http_data_only, collection_formats,
                                    _preload_content, _request_timeout)
         else:
@@ -326,7 +329,7 @@ class ApiClient(object):
                                            method, path_params, query_params,
                                            header_params, body,
                                            post_params, files,
-                                           response_type, auth_settings,
+                                           response_type, auth_requested,
                                            _return_http_data_only,
                                            collection_formats,
                                            _preload_content, _request_timeout))
@@ -547,17 +550,17 @@ class ApiClient(object):
         else:
             return content_types[0]
 
-    def update_params_for_auth(self, headers, post_params, querys, auth_settings):
-        """Updates header and query params based on authentication setting.
+    """Updates header and query params based on authentication setting.
 
-        :param headers: Header parameters dict to be updated.
-        :param querys: Query parameters tuple list to be updated.
-        :param auth_settings: Authentication setting identifiers list.
-        """
-        if not auth_settings:
+    :param headers: Header parameters dict to be updated.
+    :param querys: Query parameters tuple list to be updated.
+    """
+    def update_params_for_auth(self, headers, post_params, querys):
+
+        if not self.configuration.auths:
             return
 
-        for auth in auth_settings:
+        for auth in self.configuration.auths:
             auth_setting = self.configuration.auth_settings(auth, post_params)
             if auth_setting:
                 if not auth_setting['value']:

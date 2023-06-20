@@ -61,6 +61,17 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.merchant_key = ""
         # merchant_secret for HTTP basic authentication
         self.merchant_secret = ""
+        
+        self.header_params = {}
+        # HTTP header `Accept`
+        self.header_params['Accept'] = 'application/json'
+
+        # HTTP header `Content-Type`
+        self.header_params['Content-Type'] = 'application/json'
+
+        # Authentication setting
+        self.auths = ['basicAuth', 'signatureAuth']  # noqa: E501
+        
         # Logging Settings
         self.logger = {}
         self.logger["package_logger"] = logging.getLogger("algocash_sdk")
@@ -202,11 +213,17 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
         :return: The token for basic HTTP authentication.
         """
+        if self.merchant_key == '' or self.merchant_secret == '':
+            raise ValueError("Missing the required merchant_key and merchant_secret")
+        
         return urllib3.util.make_headers(
             basic_auth=self.merchant_key + ':' + self.merchant_secret
         ).get('authorization')
     
     def generateSignature(self, post_params):
+        
+        if self.api_access_token == '':
+            raise ValueError("Missing the required api_access_token")
         
         signature = hmac.new(self.api_access_token.encode('utf-8'), json.dumps(post_params, separators=(',', ':')).encode('utf-8'), hashlib.sha256).hexdigest()
         return signature
