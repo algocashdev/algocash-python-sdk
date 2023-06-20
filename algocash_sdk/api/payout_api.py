@@ -45,7 +45,7 @@ class PayoutApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-    def create_payout(self, invoice_id, amount, payer, bank_account, url, payment_method=None, async_req=True):  # noqa: E501
+    def create_payout(self, invoice_id, amount, payer, bank_account, url, payment_method=None, async_req=False):  # noqa: E501
 
         # verify the required parameter 'invoice_id' is set
         if (invoice_id == '' or invoice_id is None):
