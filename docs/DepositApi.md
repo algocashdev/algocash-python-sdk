@@ -38,7 +38,7 @@ url = algocash_sdk.Url('callback_url', 'pending_url', 'success_url', 'error_url'
 
 try:
     # create a deposit
-    api_response = api_instance.create_deposit(invoice_id, amount, payer, payment_method, url)
+    api_response = api_instance.create_deposit(invoice_id, amount, payer, url, payment_method)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DepositApi->create_deposit: %s\n" % e)
