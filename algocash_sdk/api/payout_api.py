@@ -76,3 +76,17 @@ class PayoutApi(object):
             response_type='PayoutSuccess',  # noqa: E501
             async_req=async_req
             )
+        
+    def request_payout_status(self, invoice_id, async_req=False):
+        if (invoice_id == '' or invoice_id is None):
+            raise ValueError("Missing the required parameter `invoice_id`")  # noqa: E501
+        
+        path_params = {}
+        path_params['invoice_id'] = invoice_id
+        
+        return self.api_client.call_api(
+            '/payout/status/{invoice_id}', 'GET',
+            path_params=path_params,
+            response_type='PayoutStatusResponse',  # noqa: E501
+            async_req=async_req
+            )

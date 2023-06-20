@@ -60,8 +60,22 @@ class DepositApi(object):
         body_params.append(('url', url))  # noqa: E501
 
         return self.api_client.call_api(
-            '/payin', 'POST',
+            '/payin/status', 'POST',
             body=body_params,
             response_type='DepositSuccess',  # noqa: E501
+            async_req=async_req
+            )
+        
+    def request_deposit_status(self, invoice_id, async_req=False):
+        if (invoice_id == '' or invoice_id is None):
+            raise ValueError("Missing the required parameter `invoice_id`")  # noqa: E501
+        
+        path_params = {}
+        path_params['invoice_id'] = invoice_id
+        
+        return self.api_client.call_api(
+            '/payin/status/{invoice_id}', 'GET',
+            path_params=path_params,
+            response_type='DepositStatusResponse',  # noqa: E501
             async_req=async_req
             )

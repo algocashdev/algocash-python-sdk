@@ -227,6 +227,9 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         
         signature = hmac.new(self.api_access_token.encode('utf-8'), json.dumps(post_params, separators=(',', ':')).encode('utf-8'), hashlib.sha256).hexdigest()
         return signature
+    
+    def get_host(self):
+        return "https://testapi2.algorithmic.cash" if self.devmode else self.host
 
     def auth_settings(self, auth, post_params):
         """Gets Auth Settings dict for api client.
