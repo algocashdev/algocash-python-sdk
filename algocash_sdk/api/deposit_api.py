@@ -60,7 +60,7 @@ class DepositApi(object):
         body_params.append(('url', url))  # noqa: E501
 
         return self.api_client.call_api(
-            '/payin/status', 'POST',
+            '/payin', 'POST',
             body=body_params,
             response_type='DepositSuccess',  # noqa: E501
             async_req=async_req
