@@ -19,6 +19,7 @@ from algocash_sdk.api.deposit_api import DepositApi
 from algocash_sdk.api.payout_api import PayoutApi
 # import ApiClient
 from algocash_sdk.api_client import ApiClient
+from algocash_sdk.callback import Callback
 from algocash_sdk.configuration import Configuration
 # import models into sdk package
 from algocash_sdk.models.address import Address

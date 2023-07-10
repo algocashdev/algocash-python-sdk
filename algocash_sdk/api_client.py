@@ -209,7 +209,7 @@ class ApiClient(object):
         return {key: self.sanitize_for_serialization(val)
                 for key, val in six.iteritems(obj_dict)}
 
-    def deserialize(self, response, response_type):
+    def deserialize(self, response, response_type, http = True):
         """Deserializes response into an object.
 
         :param response: RESTResponse object to be deserialized.
@@ -225,7 +225,7 @@ class ApiClient(object):
 
         # fetch data from response object
         try:
-            data = json.loads(response.data)
+            data = json.loads(response.data if http else response)
         except ValueError:
             # return response.data
             raise ValueError(
