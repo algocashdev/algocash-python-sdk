@@ -48,7 +48,23 @@ except ApiException as e:
     print("Exception when calling DepositApi->create_deposit: %s\n" % e)
     pprint(json.loads(e.body))
 ```
-
+### Callback Payload
+```python
+import algocash_sdk
+from algocash_sdk.callback import SignatureVerificationException
+try:
+    callback = algocash_sdk.Callback()
+    data = callback.construct_callback(payload.decode('utf-8'), 'Header_Signature', 'access_token')
+    print(data)
+except SignatureVerificationException as e:
+    print("SignatureVerificationException when listening callback: %s\n" % e)
+    self.send_response(401)
+except ValueError as e:
+    print("ValueError Exception when listening callback: %s\n" % e)
+    self.send_response(500)
+    
+self.send_response(200)
+```
 ## Documentation for API Endpoints
 
 Swagger: https://app.swaggerhub.com/apis-docs/gitdevstar/Algocash/1.0.0
