@@ -49,11 +49,12 @@ class TestDepositApi(unittest.TestCase):
 
         # create an instance of the API class
         api_instance = DepositApi(client)
-        invoice_id = '46560389502' # str | 
+        invoice_id = '47602' # str | 
         amount = '100' # str | 
         payer = algocash_sdk.Payer('test@gmail.com', '+918885916123') # Payer 
         payment_method = 'UPI' # str | 
-        url = algocash_sdk.Url('https://localhost:8080/callback', 'https://localhost:8080/pending', 'https://localhost:8080/success', 'https://localhost:8080/error') # Url | 
+        base = 'https://1836-204-188-232-195.ngrok-free.app'
+        url = algocash_sdk.Url(base, 'https://localhost:8080/pending', 'https://localhost:8080/success', 'https://localhost:8080/error') # Url | 
 
         try:
             # create a deposit
